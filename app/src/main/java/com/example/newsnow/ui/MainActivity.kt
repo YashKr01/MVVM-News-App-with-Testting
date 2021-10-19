@@ -1,7 +1,8 @@
-package com.example.newsnow
+package com.example.newsnow.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.newsnow.R
 
 class MainActivity : AppCompatActivity() {
 

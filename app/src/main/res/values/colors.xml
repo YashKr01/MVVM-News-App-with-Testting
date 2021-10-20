@@ -6,10 +6,6 @@
     <color name="lightSecondaryTextColor">#4A4A4A</color>
     <color name="colorBookmarkChecked">#ECBF12</color>
     <color name="lightIconColor">#4A4A4A</color>
-    <color name="colorGreenDark">#37AF2E</color>
-    <color name="colorGreenLight">#AFEEAF</color>
-    <color name="colorYellowDark">#D0C00E</color>
-    <color name="colorYellowLight">#FFF155</color>
     <color name="colorRed">#F44336</color>
     <color name="LightBackground">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>

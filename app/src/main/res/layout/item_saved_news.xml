@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    android:elevation="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/item_saved_news_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/rounded"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/item_saved_news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/ubuntu_bold"
+            android:maxLines="1"
+            android:textColor="@color/lightPrimaryTextColor"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/placeholder_text" />
+
+        <TextView
+            android:id="@+id/item_saved_news_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/ubuntu_medium"
+            android:maxLines="2"
+            android:textColor="@color/lightSecondaryTextColor"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@id/item_saved_news_title"
+            app:layout_constraintStart_toStartOf="@id/item_saved_news_title"
+            app:layout_constraintTop_toBottomOf="@id/item_saved_news_title"
+            tools:text="@string/placeholder_text" />
+
+        <TextView
+            android:id="@+id/item_saved_news_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawablePadding="@dimen/_4sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/lightIconColor"
+            app:drawableStartCompat="@drawable/ic_date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/item_saved_news_description"
+            app:layout_constraintTop_toBottomOf="@id/item_saved_news_description"
+            tools:text="2021-08-23" />
+
+        <ImageView
+            android:id="@+id/item_saved_news_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/item_saved_news_date"
+            app:layout_constraintEnd_toEndOf="@id/item_saved_news_description"
+            app:layout_constraintTop_toTopOf="@id/item_saved_news_date"
+            app:tint="@color/colorRed"
+            tools:src="@drawable/ic_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

@@ -1,6 +1,6 @@
 package com.example.newsnow.network.model
 
-data class NewsArticle(
+data class NewsArticleDto(
     val title: String?,
     val url: String,
     val description: String,

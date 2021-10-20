@@ -1,3 +1,3 @@
 package com.example.newsnow.network.model
 
-data class NewsResponse(val articles: List<NewsArticle>)
+data class NewsResponse(val articleDto: List<NewsArticleDto>)

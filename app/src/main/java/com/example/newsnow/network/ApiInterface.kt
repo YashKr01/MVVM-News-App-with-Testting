@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("top-headlines?country=us&apiKey=$API_KEY")
+    @GET("top-headlines?country=in&apiKey=$API_KEY")
     suspend fun getTopHeadlines(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int

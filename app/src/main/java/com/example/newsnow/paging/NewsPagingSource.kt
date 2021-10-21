@@ -2,8 +2,11 @@ package com.example.newsnow.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.newsnow.database.NewsArticle
+import com.example.newsnow.database.NewsArticleDao
 import com.example.newsnow.network.ApiInterface
 import com.example.newsnow.network.model.NewsArticleDto
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -32,8 +35,6 @@ class NewsPagingSource(private val api: ApiInterface) : PagingSource<Int, NewsAr
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, NewsArticleDto>): Int? {
-        TODO("Not yet implemented")
-    }
+    override fun getRefreshKey(state: PagingState<Int, NewsArticleDto>): Int? = null
 
 }

@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.example.newsnow.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
+import com.example.newsnow.network.model.NewsArticleDto
 
 class NewsPagingAdapter(
-    private val onItemClick: (NewsArticle) -> Unit,
-    private val onBookmarkClick: (NewsArticle) -> Unit
-) : PagingDataAdapter<NewsArticle, NewsViewHolder>(ItemComparator()) {
+    private val onItemClick: (NewsArticleDto) -> Unit,
+    private val onBookmarkClick: (NewsArticleDto) -> Unit
+) : PagingDataAdapter<NewsArticleDto, NewsViewHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder =
         NewsViewHolder(

@@ -9,6 +9,6 @@ data class NewsArticle(
     @PrimaryKey val url: String,
     val thumbnailUrl: String?,
     val description: String,
-    val isBookmarked: Boolean,
-    val updatedAt: Long = System.currentTimeMillis()
+    val publishedAt: String,
+    val isBookmarked: Boolean
 )

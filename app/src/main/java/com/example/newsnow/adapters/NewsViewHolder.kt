@@ -6,6 +6,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.newsnow.R
 import com.example.newsnow.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
+import com.example.newsnow.network.model.NewsArticleDto
 
 class NewsViewHolder(
     private val binding: ItemNewsBinding,
@@ -29,24 +30,17 @@ class NewsViewHolder(
         }
     }
 
-    fun bind(article: NewsArticle) {
+    fun bind(article: NewsArticleDto) {
         binding.apply {
 
             Glide.with(itemView)
-                .load(article.thumbnailUrl)
+                .load(article.urlToImage)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.itemNewsImage)
 
             itemNewsTitle.text = article.title
             itemNewsDescription.text = article.description
-            itemNewsDate.text = article.updatedAt.toString()
-
-            itemNewsBookmark.setImageResource(
-                when {
-                    article.isBookmarked -> R.drawable.ic_bookmark_filled
-                    else -> R.drawable.ic_bookmark_hollow
-                }
-            )
+            itemNewsDate.text = article.publishedAt
 
         }
     }

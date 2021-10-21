@@ -1,3 +1,5 @@
 package com.example.newsnow.network.model
 
-data class NewsResponse(val articleDto: List<NewsArticleDto>)
+import com.google.gson.annotations.SerializedName
+
+data class NewsResponse(@SerializedName("articles") val articleDto: List<NewsArticleDto>)

@@ -7,12 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.adapters.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.paging.NewsLoadStateAdapter
+import com.example.newsnow.utils.ExtensionFunctions.hide
+import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,10 +52,33 @@ class NewsFragment : Fragment() {
             }
         )
 
+        binding.buttonError.setOnClickListener { adapter.retry() }
+
+        adapter.addLoadStateListener { loadState ->
+            binding.apply {
+
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                newsRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                textViewError.isVisible = loadState.source.refresh is LoadState.Error
+                imageError.isVisible = loadState.source.refresh is LoadState.Error
+
+                if (loadState.source.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached &&
+                    adapter.itemCount < 1
+                ) {
+                    textViewEmpty.show()
+                    newsRecyclerView.hide()
+                } else {
+                    textViewEmpty.hide()
+                }
+            }
+        }
+
         // Recycler View
         binding.newsRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = null
             this.adapter =
                 adapter.withLoadStateFooter(footer = NewsLoadStateAdapter { adapter.retry() })
         }

@@ -5,4 +5,7 @@
     <string name="placeholder_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley</string>
     <string name="further_results_could_not_be_loaded">Further results could not be  oaded</string>
     <string name="retry">retry</string>
+    <string name="an_error_occurred">An error occured</string>
+    <string name="no_connection">No Connection</string>
+    <string name="no_results_found">No results found</string>
 </resources>

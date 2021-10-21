@@ -3,7 +3,6 @@ package com.example.newsnow.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.example.newsnow.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
 import com.example.newsnow.network.model.NewsArticleDto
 

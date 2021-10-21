@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.adapters.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
+import com.example.newsnow.paging.NewsLoadStateAdapter
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -35,6 +36,7 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Paging Adapter
         val adapter = NewsPagingAdapter(
             onItemClick = { article ->
                 val uri = Uri.parse(article.url)
@@ -46,12 +48,15 @@ class NewsFragment : Fragment() {
             }
         )
 
+        // Recycler View
         binding.newsRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
-            this.adapter = adapter
+            this.adapter =
+                adapter.withLoadStateFooter(footer = NewsLoadStateAdapter { adapter.retry() })
         }
 
+        // Collect list
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.newsList.collectLatest {
                 adapter.submitData(viewLifecycleOwner.lifecycle, it)

@@ -3,8 +3,6 @@ package com.example.newsnow.adapters
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.newsnow.R
-import com.example.newsnow.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
 import com.example.newsnow.network.model.NewsArticleDto
 

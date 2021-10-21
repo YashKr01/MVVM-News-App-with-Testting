@@ -14,12 +14,10 @@ class NewsRepository @Inject constructor(
     fun getTopHeadlines() =
         Pager(
             config = PagingConfig(
-                pageSize = 30,
+                pageSize = 10,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { NewsPagingSource(api = apiInterface) }
         ).flow
-
-
 
 }

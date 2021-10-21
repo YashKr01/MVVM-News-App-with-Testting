@@ -7,15 +7,15 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("top-headlines?country=us&pageSize=100&apiKey=$API_KEY")
-    suspend fun getBreakingNews(@Query("apiKey") apiKey: String): NewsResponse
+    @GET("top-headlines?country=us&apiKey=$API_KEY")
+    suspend fun getTopHeadlines(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): NewsResponse
 
-    @GET("everything")
+    @GET("everything?apiKey=$API_KEY")
     suspend fun searchNews(
         @Query("q") query: String,
-        @Query("page") page: Int,
-        @Query("pageSize") pageSize: Int,
-        @Query("apiKey") apiKey: String
     ): NewsResponse
 
 }

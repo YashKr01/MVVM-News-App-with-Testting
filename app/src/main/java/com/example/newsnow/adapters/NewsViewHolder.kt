@@ -38,7 +38,7 @@ class NewsViewHolder(
 
             itemNewsTitle.text = article.title
             itemNewsDescription.text = article.description
-            itemNewsDate.text = article.publishedAt
+            itemNewsDate.text = article.publishedAt.substring(0, 10)
 
         }
     }

@@ -10,5 +10,5 @@ data class NewsArticle(
     val urlToImage: String?,
     val description: String?,
     val publishedAt: String,
-    val isBookmarked: Boolean = false
+    var isBookmarked: Boolean = false
 )

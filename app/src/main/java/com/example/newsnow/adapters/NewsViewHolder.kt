@@ -22,16 +22,29 @@ class NewsViewHolder(
                 if (position != RecyclerView.NO_POSITION) onItemClick(position)
             }
 
-            itemNewsBookmark.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) onBookmarkClick(position)
-            }
+
 
         }
     }
 
     fun bind(article: NewsArticle) {
         binding.apply {
+
+            itemNewsBookmark.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+
+                    onBookmarkClick(position)
+                    if(article.isBookmarked) {
+                        itemNewsBookmark.setImageResource(R.drawable.ic_bookmark_hollow)
+                        article.isBookmarked = !article.isBookmarked
+                    }
+                    else{
+                        itemNewsBookmark.setImageResource(R.drawable.ic_bookmark_filled)
+                        article.isBookmarked = !article.isBookmarked
+                    }
+                }
+            }
 
             Glide.with(itemView)
                 .load(article.urlToImage)

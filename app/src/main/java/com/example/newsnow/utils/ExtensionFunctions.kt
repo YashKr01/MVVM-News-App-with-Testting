@@ -1,7 +1,6 @@
 package com.example.newsnow.utils
 
 import android.view.View
-import android.widget.Button
 
 object ExtensionFunctions {
 
@@ -12,5 +11,7 @@ object ExtensionFunctions {
     fun View.hide() {
         this.visibility = View.INVISIBLE
     }
+
+    fun String.trimDate(): String = this.substring(0, 10)
 
 }

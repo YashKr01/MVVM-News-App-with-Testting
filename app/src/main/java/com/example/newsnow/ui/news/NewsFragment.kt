@@ -47,8 +47,9 @@ class NewsFragment : Fragment() {
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 requireActivity().startActivity(intent)
             },
-            onBookmarkClick = {
-                TODO("bookmark logic")
+            onBookmarkClick = { article ->
+                if (article.isBookmarked) viewModel.deleteArticle(article)
+                else viewModel.insertArticle(article)
             }
         )
 

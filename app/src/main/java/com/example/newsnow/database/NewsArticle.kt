@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 data class NewsArticle(
     val title: String?,
     @PrimaryKey val url: String,
-    val thumbnailUrl: String?,
-    val description: String,
+    val urlToImage: String?,
+    val description: String?,
     val publishedAt: String,
-    val isBookmarked: Boolean
+    val isBookmarked: Boolean = false
 )

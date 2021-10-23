@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.Flow
 interface NewsArticleDao {
 
     @Query("SELECT * FROM news_articles")
-    fun getNewsList(): Flow<List<NewsArticle>>
+    fun getList(): Flow<List<NewsArticle>>
 
     @Delete
-    suspend fun deleteNewsArticle(newsArticle: NewsArticle)
+    suspend fun deleteArticle(newsArticle: NewsArticle)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNewsArticle(newsArticle: NewsArticle)
+    suspend fun insertArticle(newsArticle: NewsArticle)
 
 }

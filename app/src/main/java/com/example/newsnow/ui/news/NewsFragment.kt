@@ -3,15 +3,16 @@ package com.example.newsnow.ui.news
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsnow.R
 import com.example.newsnow.adapters.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.paging.NewsLoadStateAdapter
@@ -20,6 +21,7 @@ import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -39,6 +41,8 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
 
         // Paging Adapter
         val adapter = NewsPagingAdapter(
@@ -91,6 +95,17 @@ class NewsFragment : Fragment() {
             }
         }
 
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.saved_news) findNavController().navigate(R.id.action_newsFragment_to_savedFragment)
+        return false
     }
 
     override fun onDestroyView() {

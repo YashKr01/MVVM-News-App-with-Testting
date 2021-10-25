@@ -22,8 +22,6 @@ class NewsViewHolder(
                 if (position != RecyclerView.NO_POSITION) onItemClick(position)
             }
 
-
-
         }
     }
 

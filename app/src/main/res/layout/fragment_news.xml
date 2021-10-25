@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.news.NewsFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryBlue"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsRecyclerView"
         android:layout_width="0dp"
@@ -14,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_news" />
 

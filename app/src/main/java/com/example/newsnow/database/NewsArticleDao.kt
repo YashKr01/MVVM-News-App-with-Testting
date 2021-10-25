@@ -15,4 +15,7 @@ interface NewsArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArticle(newsArticle: NewsArticle)
 
+    @Query("DELETE FROM news_articles")
+    suspend fun deleteAllNews()
+
 }

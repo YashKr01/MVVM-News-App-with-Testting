@@ -104,7 +104,7 @@ class NewsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.saved_news) findNavController().navigate(R.id.action_newsFragment_to_savedFragment)
+        if (item.itemId == R.id.main_menu_bookmark) findNavController().navigate(R.id.action_newsFragment_to_savedFragment)
         return false
     }
 

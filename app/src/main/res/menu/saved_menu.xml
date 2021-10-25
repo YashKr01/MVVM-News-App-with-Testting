@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/saved_news"
+        android:id="@+id/saved_news_delete"
         android:icon="@drawable/ic_delete"
         android:title="@string/delete_news"
         app:showAsAction="always" />

@@ -28,4 +28,6 @@ class NewsRepository @Inject constructor(
 
     fun getSavedNews() = dao.getList()
 
+    suspend fun deleteAllNews() = dao.deleteAllNews()
+
 }

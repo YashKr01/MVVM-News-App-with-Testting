@@ -10,4 +10,10 @@
     <string name="no_results_found">No results found</string>
     <string name="saved_news">Saved News</string>
     <string name="delete_news">Delete News</string>
+    <string name="education">Education</string>
+    <string name="sports">Sports</string>
+    <string name="politics">Politics</string>
+    <string name="technology">Technology</string>
+    <string name="science">Science</string>
+    <string name="breaking">Breaking</string>
 </resources>

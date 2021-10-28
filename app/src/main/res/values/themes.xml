@@ -1,6 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+
     <style name="Theme.NewsNow" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/colorPrimaryBlue</item>
     </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/colorPrimaryBlue</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="checkedIconTint">@color/colorWhite</item>
+        <item name="android:padding">@dimen/_4sdp</item>
+    </style>
+
 </resources>

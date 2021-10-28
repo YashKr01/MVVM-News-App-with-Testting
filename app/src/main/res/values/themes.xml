@@ -6,7 +6,8 @@
     </style>
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="chipBackgroundColor">@color/colorPrimaryBlue</item>
+        <item name="chipBackgroundColor">@color/chip_checked_state</item>
+        <item name="android:clickable">true</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="checkedIconTint">@color/colorWhite</item>
         <item name="android:padding">@dimen/_4sdp</item>

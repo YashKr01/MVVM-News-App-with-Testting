@@ -1,9 +1,10 @@
-package com.example.newsnow.adapters
+package com.example.newsnow.adapters.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.example.newsnow.database.NewsArticle
+import com.example.newsnow.adapters.ItemComparator
+import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
 
 class NewsPagingAdapter(

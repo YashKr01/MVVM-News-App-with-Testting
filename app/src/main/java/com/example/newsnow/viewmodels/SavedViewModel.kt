@@ -2,9 +2,8 @@ package com.example.newsnow.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsnow.database.NewsArticle
-import com.example.newsnow.database.NewsArticleDao
-import com.example.newsnow.network.NewsRepository
+import com.example.newsnow.data.database.NewsArticle
+import com.example.newsnow.data.network.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

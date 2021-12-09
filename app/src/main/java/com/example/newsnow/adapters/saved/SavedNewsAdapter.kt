@@ -1,9 +1,10 @@
-package com.example.newsnow.adapters
+package com.example.newsnow.adapters.saved
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.newsnow.database.NewsArticle
+import com.example.newsnow.adapters.ItemComparator
+import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.ItemSavedNewsBinding
 
 class SavedNewsAdapter(

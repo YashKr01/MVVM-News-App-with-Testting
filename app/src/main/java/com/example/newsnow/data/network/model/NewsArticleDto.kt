@@ -1,4 +1,4 @@
-package com.example.newsnow.network.model
+package com.example.newsnow.data.network.model
 
 data class NewsArticleDto(
     val title: String?,

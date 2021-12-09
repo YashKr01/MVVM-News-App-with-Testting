@@ -1,7 +1,7 @@
 package com.example.newsnow.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.newsnow.database.NewsArticle
+import com.example.newsnow.data.database.NewsArticle
 
 class ItemComparator : DiffUtil.ItemCallback<NewsArticle>() {
 

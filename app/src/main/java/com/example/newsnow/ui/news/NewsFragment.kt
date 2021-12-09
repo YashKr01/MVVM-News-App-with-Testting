@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
-import com.example.newsnow.adapters.NewsPagingAdapter
+import com.example.newsnow.adapters.news.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.paging.NewsLoadStateAdapter
 import com.example.newsnow.utils.ExtensionFunctions.hide

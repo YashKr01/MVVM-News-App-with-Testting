@@ -8,12 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
-import com.example.newsnow.adapters.SavedNewsAdapter
+import com.example.newsnow.adapters.saved.SavedNewsAdapter
 import com.example.newsnow.databinding.FragmentSavedBinding
-import com.example.newsnow.viewmodels.NewsViewModel
 import com.example.newsnow.viewmodels.SavedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

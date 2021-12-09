@@ -1,9 +1,9 @@
-package com.example.newsnow.network
+package com.example.newsnow.data.network
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.example.newsnow.database.NewsArticle
-import com.example.newsnow.database.NewsArticleDao
+import com.example.newsnow.data.database.NewsArticle
+import com.example.newsnow.data.database.NewsArticleDao
 import com.example.newsnow.paging.NewsPagingSource
 import javax.inject.Inject
 

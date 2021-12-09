@@ -1,6 +1,6 @@
-package com.example.newsnow.network
+package com.example.newsnow.data.network
 
-import com.example.newsnow.network.model.NewsResponse
+import com.example.newsnow.data.network.model.NewsResponse
 import com.example.newsnow.utils.Constants.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Query

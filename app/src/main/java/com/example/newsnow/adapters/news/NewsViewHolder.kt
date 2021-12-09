@@ -1,10 +1,10 @@
-package com.example.newsnow.adapters
+package com.example.newsnow.adapters.news
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.newsnow.R
-import com.example.newsnow.database.NewsArticle
+import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.ItemNewsBinding
 import com.example.newsnow.utils.ExtensionFunctions.trimDate
 

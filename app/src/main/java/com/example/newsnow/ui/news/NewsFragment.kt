@@ -45,11 +45,10 @@ class NewsFragment : Fragment() {
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
 
         // Paging Adapter
-        val adapter = NewsPagingAdapter(
+        val newsAdapter = NewsPagingAdapter(
             onItemClick = { article ->
                 val uri = Uri.parse(article.url)
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                requireActivity().startActivity(intent)
+                requireActivity().startActivity(Intent(Intent.ACTION_VIEW, uri))
             },
             onBookmarkClick = { article ->
                 if (article.isBookmarked) viewModel.deleteArticle(article)
@@ -57,25 +56,25 @@ class NewsFragment : Fragment() {
             }
         )
 
-        binding.buttonError.setOnClickListener { adapter.retry() }
+        binding.buttonError.setOnClickListener { newsAdapter.retry() }
 
-        adapter.addLoadStateListener { loadState ->
+        newsAdapter.addLoadStateListener { loadState ->
             binding.apply {
 
                 progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 newsRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
                 imageError.isVisible = loadState.source.refresh is LoadState.Error
+                buttonError.isVisible = loadState.source.refresh is LoadState.Error
 
                 if (loadState.source.refresh is LoadState.NotLoading &&
                     loadState.append.endOfPaginationReached &&
-                    adapter.itemCount < 1
+                    newsAdapter.itemCount < 1
                 ) {
                     textViewEmpty.show()
                     newsRecyclerView.hide()
-                } else {
-                    textViewEmpty.hide()
-                }
+                } else textViewEmpty.hide()
+
             }
         }
 
@@ -84,14 +83,14 @@ class NewsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = null
-            this.adapter =
-                adapter.withLoadStateFooter(footer = NewsLoadStateAdapter { adapter.retry() })
+            adapter = newsAdapter
+                .withLoadStateFooter(footer = NewsLoadStateAdapter { newsAdapter.retry() })
         }
 
         // Collect list
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.newsList.collectLatest {
-                adapter.submitData(viewLifecycleOwner.lifecycle, it)
+                newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
 
@@ -104,7 +103,8 @@ class NewsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.main_menu_bookmark) findNavController().navigate(R.id.action_newsFragment_to_savedFragment)
+        if (item.itemId == R.id.main_menu_bookmark)
+            findNavController().navigate(R.id.action_newsFragment_to_savedFragment)
         return false
     }
 

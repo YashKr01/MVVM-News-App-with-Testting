@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.newsnow.data.database.NewsArticleDao
 import com.example.newsnow.data.database.NewsDatabase
-import com.example.newsnow.data.network.ApiInterface
+import com.example.newsnow.data.network.retrofit.ApiInterface
 import com.example.newsnow.utils.Constants.BASE_URL
 import com.example.newsnow.utils.Constants.DATABASE_NAME
 import com.readystatesoftware.chuck.ChuckInterceptor

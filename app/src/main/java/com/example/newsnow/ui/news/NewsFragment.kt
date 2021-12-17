@@ -47,8 +47,8 @@ class NewsFragment : Fragment() {
         // Paging Adapter
         val newsAdapter = NewsPagingAdapter(
             onItemClick = { article ->
-                val uri = Uri.parse(article.url)
-                requireActivity().startActivity(Intent(Intent.ACTION_VIEW, uri))
+                val action = NewsFragmentDirections.actionNewsFragmentToWebFragment(article)
+                findNavController().navigate(action)
             },
             onBookmarkClick = { article ->
                 if (article.isBookmarked) viewModel.deleteArticle(article)

@@ -1,4 +1,4 @@
-package com.example.newsnow.data.network
+package com.example.newsnow.data.network.retrofit
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
 import com.example.newsnow.adapters.saved.SavedNewsAdapter
@@ -38,9 +39,8 @@ class SavedFragment : Fragment() {
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
 
         val adapter = SavedNewsAdapter(onItemClick = { article ->
-            val uri = Uri.parse(article.url)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            requireActivity().startActivity(intent)
+            val action = SavedFragmentDirections.actionSavedFragmentToWebFragment(article)
+            findNavController().navigate(action)
         }, onDeleteClick = { article ->
             viewModel.deleteArticle(article)
         })

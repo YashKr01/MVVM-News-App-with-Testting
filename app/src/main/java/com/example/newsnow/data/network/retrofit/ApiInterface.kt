@@ -1,4 +1,4 @@
-package com.example.newsnow.data.network
+package com.example.newsnow.data.network.retrofit
 
 import com.example.newsnow.data.network.model.NewsResponse
 import com.example.newsnow.utils.Constants.API_KEY

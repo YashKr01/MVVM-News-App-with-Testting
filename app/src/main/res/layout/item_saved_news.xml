@@ -83,17 +83,6 @@
             app:layout_constraintTop_toBottomOf="@id/item_saved_news_description"
             tools:text="2021-08-23" />
 
-        <ImageView
-            android:id="@+id/item_saved_news_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintBottom_toBottomOf="@id/item_saved_news_date"
-            app:layout_constraintEnd_toEndOf="@id/item_saved_news_description"
-            app:layout_constraintTop_toTopOf="@id/item_saved_news_date"
-            app:tint="@color/colorRed" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

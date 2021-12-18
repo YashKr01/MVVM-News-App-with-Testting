@@ -8,8 +8,7 @@ import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.ItemSavedNewsBinding
 
 class SavedNewsAdapter(
-    private val onItemClick: (NewsArticle) -> Unit,
-    private val onDeleteClick: (NewsArticle) -> Unit
+    private val onItemClick: (NewsArticle) -> Unit
 ) : ListAdapter<NewsArticle, SavedNewsViewHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedNewsViewHolder =
@@ -21,10 +20,6 @@ class SavedNewsAdapter(
             onItemClick = { position ->
                 val article = getItem(position)
                 if (article != null) onItemClick(article)
-            },
-            onDeleteClick = { position ->
-                val article = getItem(position)
-                if (article != null) onDeleteClick(article)
             }
         )
 

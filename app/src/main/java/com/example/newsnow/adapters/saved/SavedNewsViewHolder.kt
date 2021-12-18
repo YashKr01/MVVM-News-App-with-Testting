@@ -9,16 +9,10 @@ import com.example.newsnow.utils.ExtensionFunctions.trimDate
 
 class SavedNewsViewHolder(
     private val binding: ItemSavedNewsBinding,
-    private val onItemClick: (Int) -> Unit,
-    private val onDeleteClick: (Int) -> Unit
+    private val onItemClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.itemSavedNewsDelete.setOnClickListener {
-            val position = bindingAdapterPosition
-            if (position != RecyclerView.NO_POSITION) onDeleteClick(position)
-        }
-
         binding.root.setOnClickListener {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onItemClick(position)

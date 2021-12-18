@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NewsArticleDao {
 
-    @Query("SELECT * FROM news_articles")
+    @Query("SELECT * FROM news_articles ORDER BY title ASC")
     fun getList(): Flow<List<NewsArticle>>
 
     @Delete

@@ -21,4 +21,8 @@ class SavedViewModel @Inject constructor(private val repository: NewsRepository)
         repository.deleteAllNews()
     }
 
+    fun insertArticle(newsArticle: NewsArticle) = viewModelScope.launch {
+        repository.insertArticle(newsArticle)
+    }
+
 }

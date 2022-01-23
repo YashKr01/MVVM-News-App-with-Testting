@@ -1,7 +1,5 @@
 package com.example.newsnow.ui.news
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +19,6 @@ import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -61,7 +58,7 @@ class NewsFragment : Fragment() {
         newsAdapter.addLoadStateListener { loadState ->
             binding.apply {
 
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
                 newsRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
                 imageError.isVisible = loadState.source.refresh is LoadState.Error

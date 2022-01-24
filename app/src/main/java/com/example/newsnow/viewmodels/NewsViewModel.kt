@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val repository: NewsRepository
+    private val repository: NewsRepository,
 ) : ViewModel() {
 
     fun insertArticle(newsArticle: NewsArticle) = viewModelScope.launch {
@@ -23,5 +23,9 @@ class NewsViewModel @Inject constructor(
     }
 
     val newsList = repository.getTopHeadlines().cachedIn(viewModelScope)
+
+    val currentQuery = repository.currentQuery
+
+    fun setCurrentQuery(query: String) = viewModelScope.launch { repository.setCurrentQuery(query) }
 
 }

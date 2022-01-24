@@ -1,4 +1,4 @@
-package com.example.newsnow.paging
+package com.example.newsnow.data.network.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

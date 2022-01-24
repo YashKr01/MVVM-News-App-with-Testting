@@ -1,6 +1,7 @@
 package com.example.newsnow.ui.news
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -13,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
 import com.example.newsnow.adapters.news.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
-import com.example.newsnow.paging.NewsLoadStateAdapter
+import com.example.newsnow.data.network.paging.NewsLoadStateAdapter
 import com.example.newsnow.utils.ExtensionFunctions.hide
 import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -65,8 +67,7 @@ class NewsFragment : Fragment() {
                 buttonError.isVisible = loadState.source.refresh is LoadState.Error
 
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached &&
-                    newsAdapter.itemCount < 1
+                    loadState.append.endOfPaginationReached && newsAdapter.itemCount < 1
                 ) {
                     textViewEmpty.show()
                     newsRecyclerView.hide()
@@ -88,6 +89,39 @@ class NewsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.newsList.collectLatest {
                 newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.currentQuery.collectLatest { query ->
+                when(query) {
+                    "Breaking" -> {
+                        binding.chipBreakingNews.isChecked = true
+                    }
+                    "Education" -> {
+                        binding.chipEducation.isChecked = true
+                    }
+                    "Politics" -> {
+                        binding.chipPolitics.isChecked = true
+                    }
+                    "Science" -> {
+                        binding.chipScience.isChecked = true
+                    }
+                    "Technology" -> {
+                        binding.chipTechnology.isChecked = true
+                    }
+                }
+            }
+        }
+
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.chip_breaking_news -> viewModel.setCurrentQuery("Breaking")
+                R.id.chip_education -> viewModel.setCurrentQuery("Education")
+                R.id.chip_politics -> viewModel.setCurrentQuery("Politics")
+                R.id.chip_science -> viewModel.setCurrentQuery("Science")
+                R.id.chip_sports -> viewModel.setCurrentQuery("Sports")
+                R.id.chip_technology -> viewModel.setCurrentQuery("Technology")
             }
         }
 

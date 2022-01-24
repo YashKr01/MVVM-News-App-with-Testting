@@ -4,12 +4,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.data.database.NewsArticleDao
-import com.example.newsnow.paging.NewsPagingSource
+import com.example.newsnow.data.datastore.PreferenceStorage
+import com.example.newsnow.data.network.paging.NewsPagingSource
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     private val apiInterface: ApiInterface,
-    private val dao: NewsArticleDao
+    private val dao: NewsArticleDao,
+    private val preferenceStorage: PreferenceStorage
 ) {
 
     fun getTopHeadlines() =
@@ -29,5 +31,9 @@ class NewsRepository @Inject constructor(
     fun getSavedNews() = dao.getList()
 
     suspend fun deleteAllNews() = dao.deleteAllNews()
+
+    val currentQuery = preferenceStorage.currentQuery
+
+    suspend fun setCurrentQuery(query: String) = preferenceStorage.setCurrentQuery(query)
 
 }

@@ -11,6 +11,9 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="checkedIconTint">@color/colorWhite</item>
         <item name="android:padding">@dimen/_4sdp</item>
+        <item name="checkedIcon">@null</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
     </style>
 
 </resources>

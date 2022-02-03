@@ -98,14 +98,13 @@ class NewsFragment : Fragment() {
 
         // Collect list
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.newsList.collectLatest {
+            viewModel.newsList(SPORTS).collectLatest {
                 newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentQuery.collectLatest { query ->
-                Log.d("TAG", "onViewCreated: $query")
                 when (query) {
                     BREAKING -> {
                         binding.chipBreakingNews.isChecked = true

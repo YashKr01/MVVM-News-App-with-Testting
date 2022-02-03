@@ -14,14 +14,14 @@ class NewsRepository @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) {
 
-    fun getTopHeadlines() =
+    fun getTopHeadlines(query: String) =
         Pager(
             config = PagingConfig(
                 pageSize = 30,
                 enablePlaceholders = false,
                 initialLoadSize = 30
             ),
-            pagingSourceFactory = { NewsPagingSource(api = apiInterface, dao = dao) }
+            pagingSourceFactory = { NewsPagingSource(api = apiInterface, dao = dao, query = query) }
         ).flow
 
     suspend fun insertArticle(newsArticle: NewsArticle) = dao.insertArticle(newsArticle)

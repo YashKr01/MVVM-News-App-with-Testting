@@ -22,7 +22,7 @@ class NewsViewModel @Inject constructor(
         repository.deleteArticle(newsArticle)
     }
 
-    val newsList = repository.getTopHeadlines().cachedIn(viewModelScope)
+    fun newsList(query: String) = repository.getTopHeadlines(query).cachedIn(viewModelScope)
 
     val currentQuery = repository.currentQuery
 

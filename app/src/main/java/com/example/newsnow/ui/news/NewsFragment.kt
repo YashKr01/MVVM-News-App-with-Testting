@@ -1,7 +1,6 @@
 package com.example.newsnow.ui.news
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -96,33 +95,44 @@ class NewsFragment : Fragment() {
                 .withLoadStateFooter(footer = NewsLoadStateAdapter { newsAdapter.retry() })
         }
 
-        // Collect list
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.newsList(SPORTS).collectLatest {
-                newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-            }
-        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentQuery.collectLatest { query ->
                 when (query) {
                     BREAKING -> {
                         binding.chipBreakingNews.isChecked = true
+                        viewModel.newsList(BREAKING).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                     EDUCATION -> {
                         binding.chipEducation.isChecked = true
+                        viewModel.newsList(EDUCATION).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                     POLITICS -> {
                         binding.chipPolitics.isChecked = true
+                        viewModel.newsList(POLITICS).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                     SCIENCE -> {
                         binding.chipScience.isChecked = true
+                        viewModel.newsList(SCIENCE).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                     TECHNOLOGY -> {
                         binding.chipTechnology.isChecked = true
+                        viewModel.newsList(TECHNOLOGY).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                     SPORTS -> {
                         binding.chipSports.isChecked = true
+                        viewModel.newsList(SPORTS).collectLatest {
+                            newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
                     }
                 }
             }

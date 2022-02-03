@@ -8,6 +8,8 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.asLiveData
+import com.example.newsnow.utils.Constants.BREAKING
+import com.example.newsnow.utils.Constants.USER_PREFERENCES_NAME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -29,12 +31,11 @@ class AppPreferenceStorage
 @Inject constructor(@ApplicationContext private val context: Context) : PreferenceStorage {
 
     companion object {
-        private const val USER_PREFERENCES_NAME = "user_preferences"
-        val CURRENT_QUERY = stringPreferencesKey("Breaking")
+        val CURRENT_QUERY = stringPreferencesKey("QUERY")
     }
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        name = "USER_PREFERENCES_NAME"
+        name = USER_PREFERENCES_NAME
     )
 
     override suspend fun setCurrentQuery(query: String) {
@@ -44,7 +45,7 @@ class AppPreferenceStorage
     }
 
     override val currentQuery: Flow<String>
-        get() = context.dataStore.getValueAsFlow(CURRENT_QUERY, "Breaking")
+        get() = context.dataStore.getValueAsFlow(CURRENT_QUERY, BREAKING)
 
     private fun <T> DataStore<Preferences>.getValueAsFlow(
         key: Preferences.Key<T>,

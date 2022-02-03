@@ -15,6 +15,12 @@ import com.example.newsnow.R
 import com.example.newsnow.adapters.news.NewsPagingAdapter
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.data.network.paging.NewsLoadStateAdapter
+import com.example.newsnow.utils.Constants.BREAKING
+import com.example.newsnow.utils.Constants.EDUCATION
+import com.example.newsnow.utils.Constants.POLITICS
+import com.example.newsnow.utils.Constants.SCIENCE
+import com.example.newsnow.utils.Constants.SPORTS
+import com.example.newsnow.utils.Constants.TECHNOLOGY
 import com.example.newsnow.utils.ExtensionFunctions.hide
 import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
@@ -56,6 +62,7 @@ class NewsFragment : Fragment() {
         )
 
         binding.buttonError.setOnClickListener { newsAdapter.retry() }
+        binding.swipeRefreshLayout.setOnRefreshListener { newsAdapter.retry() }
 
         newsAdapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -66,12 +73,16 @@ class NewsFragment : Fragment() {
                 imageError.isVisible = loadState.source.refresh is LoadState.Error
                 buttonError.isVisible = loadState.source.refresh is LoadState.Error
 
-                if (loadState.source.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached && newsAdapter.itemCount < 1
+                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached &&
+                    newsAdapter.itemCount < 1
                 ) {
                     textViewEmpty.show()
                     newsRecyclerView.hide()
-                } else textViewEmpty.hide()
+                    swipeRefreshLayout.isRefreshing = false
+                } else {
+                    textViewEmpty.hide()
+                    swipeRefreshLayout.isRefreshing = false
+                }
 
             }
         }
@@ -94,21 +105,25 @@ class NewsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentQuery.collectLatest { query ->
-                when(query) {
-                    "Breaking" -> {
+                Log.d("TAG", "onViewCreated: $query")
+                when (query) {
+                    BREAKING -> {
                         binding.chipBreakingNews.isChecked = true
                     }
-                    "Education" -> {
+                    EDUCATION -> {
                         binding.chipEducation.isChecked = true
                     }
-                    "Politics" -> {
+                    POLITICS -> {
                         binding.chipPolitics.isChecked = true
                     }
-                    "Science" -> {
+                    SCIENCE -> {
                         binding.chipScience.isChecked = true
                     }
-                    "Technology" -> {
+                    TECHNOLOGY -> {
                         binding.chipTechnology.isChecked = true
+                    }
+                    SPORTS -> {
+                        binding.chipSports.isChecked = true
                     }
                 }
             }
@@ -116,12 +131,12 @@ class NewsFragment : Fragment() {
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.chip_breaking_news -> viewModel.setCurrentQuery("Breaking")
-                R.id.chip_education -> viewModel.setCurrentQuery("Education")
-                R.id.chip_politics -> viewModel.setCurrentQuery("Politics")
-                R.id.chip_science -> viewModel.setCurrentQuery("Science")
-                R.id.chip_sports -> viewModel.setCurrentQuery("Sports")
-                R.id.chip_technology -> viewModel.setCurrentQuery("Technology")
+                R.id.chip_breaking_news -> viewModel.setCurrentQuery(BREAKING)
+                R.id.chip_education -> viewModel.setCurrentQuery(EDUCATION)
+                R.id.chip_politics -> viewModel.setCurrentQuery(POLITICS)
+                R.id.chip_science -> viewModel.setCurrentQuery(SCIENCE)
+                R.id.chip_sports -> viewModel.setCurrentQuery(SPORTS)
+                R.id.chip_technology -> viewModel.setCurrentQuery(TECHNOLOGY)
             }
         }
 

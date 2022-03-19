@@ -27,6 +27,7 @@ import com.example.newsnow.viewmodels.NewsViewModel
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -104,28 +105,13 @@ class NewsFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentQuery.collectLatest { query ->
-                Log.d("TAG", "onViewCreated: $query")
-                when (query) {
-                    BREAKING -> {
-                        binding.chipBreakingNews.isChecked = true
-                    }
-                    EDUCATION -> {
-                        binding.chipEducation.isChecked = true
-                    }
-                    POLITICS -> {
-                        binding.chipPolitics.isChecked = true
-                    }
-                    SCIENCE -> {
-                        binding.chipScience.isChecked = true
-                    }
-                    TECHNOLOGY -> {
-                        binding.chipTechnology.isChecked = true
-                    }
-                    SPORTS -> {
-                        binding.chipSports.isChecked = true
-                    }
-                }
+            when (viewModel.currentQuery.first()) {
+                BREAKING -> binding.chipBreakingNews.isChecked = true
+                EDUCATION -> binding.chipEducation.isChecked = true
+                POLITICS -> binding.chipPolitics.isChecked = true
+                SCIENCE -> binding.chipScience.isChecked = true
+                TECHNOLOGY -> binding.chipTechnology.isChecked = true
+                SPORTS -> binding.chipSports.isChecked = true
             }
         }
 

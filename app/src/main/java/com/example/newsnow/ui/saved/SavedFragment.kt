@@ -77,6 +77,8 @@ class SavedFragment : Fragment() {
 
             viewModel.deleteArticle(deletedArticle)
 
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("KEY", true)
+
             Snackbar.make(
                 requireContext(),
                 binding.savedRecyclerView,

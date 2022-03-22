@@ -7,12 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
 import com.example.newsnow.adapters.news.NewsPagingAdapter
+import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.data.network.paging.NewsLoadStateAdapter
 import com.example.newsnow.utils.Constants.BREAKING
@@ -24,10 +27,10 @@ import com.example.newsnow.utils.Constants.TECHNOLOGY
 import com.example.newsnow.utils.ExtensionFunctions.hide
 import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
-import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -125,6 +128,44 @@ class NewsFragment : Fragment() {
                 R.id.chip_technology -> viewModel.setCurrentQuery(TECHNOLOGY)
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("KEY")
+            ?.distinctUntilChanged()?.observe(viewLifecycleOwner) { result ->
+                Log.d("TAG", "onViewCreated: $result")
+                if (result == true) {
+                    viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                        val currentList = newsAdapter.snapshot().items
+                        val databaseList = viewModel.getDatabaseList().firstOrNull()
+                        val newsArticles = currentList.map { newsArticle ->
+
+                            val isBookMarked = databaseList?.any { bookmarked ->
+                                bookmarked.url == newsArticle.url
+                            }
+
+                            isBookMarked?.let {
+                                NewsArticle(
+                                    title = newsArticle.title,
+                                    url = newsArticle.url,
+                                    urlToImage = newsArticle.urlToImage,
+                                    description = newsArticle.description,
+                                    publishedAt = newsArticle.publishedAt,
+                                    isBookmarked = it
+                                )
+                            }
+
+                        }
+
+                        val list = mutableListOf<NewsArticle>()
+
+                        for (i in newsArticles) {
+                            i?.let { list.add(it) }
+                        }
+
+                        newsAdapter.submitData(PagingData.from(list))
+                    }
+                }
+                findNavController().currentBackStackEntry?.savedStateHandle?.set("KEY", false)
+            }
 
         setHasOptionsMenu(true)
     }

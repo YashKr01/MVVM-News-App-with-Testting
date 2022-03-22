@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.newsnow.data.database.NewsArticle
+import com.example.newsnow.data.database.NewsArticleDao
 import com.example.newsnow.data.network.retrofit.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,6 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
+    private val dao: NewsArticleDao
 ) : ViewModel() {
 
     fun insertArticle(newsArticle: NewsArticle) = viewModelScope.launch {
@@ -27,5 +29,7 @@ class NewsViewModel @Inject constructor(
     val currentQuery = repository.currentQuery
 
     fun setCurrentQuery(query: String) = viewModelScope.launch { repository.setCurrentQuery(query) }
+
+    fun getDatabaseList() = dao.getList()
 
 }

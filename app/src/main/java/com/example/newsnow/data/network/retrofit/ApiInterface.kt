@@ -13,9 +13,4 @@ interface ApiInterface {
         @Query("pageSize") pageSize: Int
     ): NewsResponse
 
-    @GET("everything?apiKey=$API_KEY")
-    suspend fun searchNews(
-        @Query("q") query: String,
-    ): NewsResponse
-
 }

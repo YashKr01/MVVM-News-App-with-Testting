@@ -32,7 +32,7 @@ class NewsRepository @Inject constructor(
 
     suspend fun deleteAllNews() = dao.deleteAllNews()
 
-    val currentQuery = preferenceStorage.currentQuery
+    suspend fun getCurrentQuery() = preferenceStorage.getCurrentQuery()
 
     suspend fun setCurrentQuery(query: String) = preferenceStorage.setCurrentQuery(query)
 

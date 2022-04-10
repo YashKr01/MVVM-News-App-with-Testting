@@ -29,7 +29,6 @@ import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 
 @AndroidEntryPoint
@@ -107,8 +106,9 @@ class NewsFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            when (viewModel.currentQuery.first()) {
+        viewModel.query.observe(viewLifecycleOwner) {
+            Log.d("jbefvubiwrbv", "onViewCreated: $it")
+            when (it) {
                 BREAKING -> binding.chipBreakingNews.isChecked = true
                 EDUCATION -> binding.chipEducation.isChecked = true
                 POLITICS -> binding.chipPolitics.isChecked = true

@@ -22,7 +22,7 @@ interface PreferenceStorage {
 
     suspend fun setCurrentQuery(query: String)
 
-    val currentQuery : Flow<String>
+    suspend fun getCurrentQuery() : Flow<String>
 
 }
 
@@ -44,17 +44,8 @@ class AppPreferenceStorage
         }
     }
 
-    override val currentQuery: Flow<String>
-        get() = context.dataStore.getValueAsFlow(CURRENT_QUERY, BREAKING)
-
-    private fun <T> DataStore<Preferences>.getValueAsFlow(
-        key: Preferences.Key<T>,
-        defaultValue: T
-    ): Flow<T> {
-        return this.data.catch { exception ->
-            if (exception is IOException) emit(emptyPreferences())
-            else throw exception
-        }.map { preferences -> preferences[key] ?: defaultValue }
+    override suspend fun getCurrentQuery(): Flow<String> = context.dataStore.data.map {
+        it[CURRENT_QUERY] ?: BREAKING
     }
 
 }

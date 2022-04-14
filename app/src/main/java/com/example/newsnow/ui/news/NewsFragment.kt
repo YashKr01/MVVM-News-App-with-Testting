@@ -1,21 +1,17 @@
 package com.example.newsnow.ui.news
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsnow.R
 import com.example.newsnow.adapters.news.NewsPagingAdapter
-import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.databinding.FragmentNewsBinding
 import com.example.newsnow.data.network.paging.NewsLoadStateAdapter
 import com.example.newsnow.utils.Constants.BREAKING
@@ -28,8 +24,6 @@ import com.example.newsnow.utils.ExtensionFunctions.hide
 import com.example.newsnow.utils.ExtensionFunctions.show
 import com.example.newsnow.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.firstOrNull
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -92,7 +86,7 @@ class NewsFragment : Fragment() {
 
         // Recycler View
         binding.newsRecyclerView.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = null
             adapter = newsAdapter
@@ -101,71 +95,27 @@ class NewsFragment : Fragment() {
 
         // Collect list
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.newsList.collectLatest {
+            viewModel.newsList.observe(viewLifecycleOwner) {
                 newsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-            }
-        }
-
-        viewModel.query.observe(viewLifecycleOwner) {
-            Log.d("jbefvubiwrbv", "onViewCreated: $it")
-            when (it) {
-                BREAKING -> binding.chipBreakingNews.isChecked = true
-                EDUCATION -> binding.chipEducation.isChecked = true
-                POLITICS -> binding.chipPolitics.isChecked = true
-                SCIENCE -> binding.chipScience.isChecked = true
-                TECHNOLOGY -> binding.chipTechnology.isChecked = true
-                SPORTS -> binding.chipSports.isChecked = true
             }
         }
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.chip_breaking_news -> viewModel.setCurrentQuery(BREAKING)
-                R.id.chip_education -> viewModel.setCurrentQuery(EDUCATION)
-                R.id.chip_politics -> viewModel.setCurrentQuery(POLITICS)
-                R.id.chip_science -> viewModel.setCurrentQuery(SCIENCE)
-                R.id.chip_sports -> viewModel.setCurrentQuery(SPORTS)
-                R.id.chip_technology -> viewModel.setCurrentQuery(TECHNOLOGY)
+                R.id.chip_breaking_news -> viewModel.changeQuery(BREAKING)
+
+                R.id.chip_education -> viewModel.changeQuery(EDUCATION)
+
+                R.id.chip_politics -> viewModel.changeQuery(POLITICS)
+
+                R.id.chip_science -> viewModel.changeQuery(SCIENCE)
+
+                R.id.chip_sports -> viewModel.changeQuery(SPORTS)
+
+                R.id.chip_technology -> viewModel.changeQuery(TECHNOLOGY)
+
             }
         }
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("KEY")
-            ?.distinctUntilChanged()?.observe(viewLifecycleOwner) { result ->
-                Log.d("TAG", "onViewCreated: $result")
-                if (result == true) {
-                    viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                        val currentList = newsAdapter.snapshot().items
-                        val databaseList = viewModel.getDatabaseList().firstOrNull()
-                        val newsArticles = currentList.map { newsArticle ->
-
-                            val isBookMarked = databaseList?.any { bookmarked ->
-                                bookmarked.url == newsArticle.url
-                            }
-
-                            isBookMarked?.let {
-                                NewsArticle(
-                                    title = newsArticle.title,
-                                    url = newsArticle.url,
-                                    urlToImage = newsArticle.urlToImage,
-                                    description = newsArticle.description,
-                                    publishedAt = newsArticle.publishedAt,
-                                    isBookmarked = it
-                                )
-                            }
-
-                        }
-
-                        val list = mutableListOf<NewsArticle>()
-
-                        for (i in newsArticles) {
-                            i?.let { list.add(it) }
-                        }
-
-                        newsAdapter.submitData(PagingData.from(list))
-                    }
-                }
-                findNavController().currentBackStackEntry?.savedStateHandle?.set("KEY", false)
-            }
 
         setHasOptionsMenu(true)
     }

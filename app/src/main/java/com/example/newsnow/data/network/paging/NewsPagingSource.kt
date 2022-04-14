@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.example.newsnow.data.database.NewsArticle
 import com.example.newsnow.data.database.NewsArticleDao
 import com.example.newsnow.data.network.retrofit.ApiInterface
+import com.example.newsnow.utils.Constants.BREAKING
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,7 +14,8 @@ private const val STARTING_PAGE_INDEX = 1
 
 class NewsPagingSource(
     private val api: ApiInterface,
-    private val dao: NewsArticleDao
+    private val dao: NewsArticleDao,
+    private val query: String
 ) : PagingSource<Int, NewsArticle>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsArticle> {
@@ -21,7 +23,11 @@ class NewsPagingSource(
         val position = params.key ?: STARTING_PAGE_INDEX
 
         return try {
-            val response = api.getTopHeadlines(position, params.loadSize)
+            val response = if (query == BREAKING) api.getTopHeadlines(
+                position,
+                params.loadSize
+            ) else api.searchNews(query, position, params.loadSize)
+
             val newsList = response.articleDto
 
             val databaseList = dao.getList().first()

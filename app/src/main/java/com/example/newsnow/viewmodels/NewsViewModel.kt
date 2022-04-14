@@ -17,8 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
-    private val dao: NewsArticleDao,
-    private val apiInterface: ApiInterface
 ) : ViewModel() {
 
     private val currentQuery = MutableLiveData(SPORTS)
